@@ -2,8 +2,15 @@
   "name": "faunadb-fql-lib",
   "version": "0.1.3",
   "description": "A set of functions extending FQL by using current FQL primitives",
-  "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
+  "browser": "dist/index.bundle.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
   "author": "Eigil Sagafos",
   "license": "MIT",
   "scripts": {

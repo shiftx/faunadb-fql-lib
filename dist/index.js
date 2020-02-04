@@ -1,2 +1,2 @@
-// export * from "./functions/PaginateReverse"
-export * from "./functions/Reverse";
+import { Reverse } from "./functions/Reverse";
+export { Reverse };
