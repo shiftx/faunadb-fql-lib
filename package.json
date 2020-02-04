@@ -22,6 +22,6 @@
     "typescript": "^3.7.5"
   },
   "peerDependencies": {
-    "faunadb": "^2.11.1"
+    "faunadb": "2.x"
   }
 }
