@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "declaration": true,
+        "declarationDir": "./dist",
+        "moduleResolution": "node",
+        "module": "es6",
+        "noImplicitAny": true,
+        "outDir": "./dist",
+        "target": "es2015",
+        "skipLibCheck": true,
+        "types": []
+    },
+    "include": ["src/index.ts"],
+    "exclude": ["node_modules"]
+}
