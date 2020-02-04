@@ -4,7 +4,6 @@
   "description": "A set of functions extending FQL by using current FQL primitives",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
-  "browser": "dist/index.bundle.js",
   "types": "dist/index.d.ts",
   "files": [
     "dist",
@@ -14,7 +13,7 @@
   "author": "Eigil Sagafos",
   "license": "MIT",
   "scripts": {
-    "build": "rollup -c && tsc",
+    "build": "rm -rf dist && rollup -c && tsc",
     "test": "jest",
     "publish": "np --contents=dist"
   },
@@ -25,8 +24,10 @@
     "np": "^5.2.1",
     "prettier": "^1.19.1",
     "rollup": "^1.31.0",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-terser": "^5.2.0",
-    "rollup-plugin-typescript2": "^0.25.3",
+    "rollup-plugin-typescript": "^1.0.1",
     "typescript": "^3.7.5"
   },
   "peerDependencies": {

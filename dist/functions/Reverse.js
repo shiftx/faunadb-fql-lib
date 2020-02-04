@@ -1,2 +1,4 @@
-import { query as q } from "faunadb";
-export const Reverse = (arr) => q.Reduce(q.Lambda(["acc", "val"], q.Append(q.Var("acc"), [q.Var("val")])), [], arr);
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const faunadb_1 = require("faunadb");
+exports.Reverse = (arr) => faunadb_1.query.Reduce(faunadb_1.query.Lambda(["acc", "val"], faunadb_1.query.Append(faunadb_1.query.Var("acc"), [faunadb_1.query.Var("val")])), [], arr);
