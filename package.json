@@ -7,11 +7,13 @@
   "author": "Eigil Sagafos",
   "license": "MIT",
   "scripts": {
-    "build": "rollup -c && tsc"
+    "build": "rollup -c && tsc",
+    "test": "jest"
   },
   "devDependencies": {
     "eslint": "^6.8.0",
     "faunadb": "^2.11.1",
+    "jest": "^25.1.0",
     "np": "^5.2.1",
     "prettier": "^1.19.1",
     "rollup": "^1.31.0",
