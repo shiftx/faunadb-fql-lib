@@ -1,6 +1,6 @@
 import { query as q, ExprArg, ExprVal } from "faunadb"
 
-export const SplitString = (string: ExprArg, delimiter = "."): ExprVal =>
+export const StringSplit = (string: ExprArg, delimiter = "."): ExprVal =>
     q.If(
         q.Not(q.IsString(string)),
         q.Abort("SplitString only accept strings"),

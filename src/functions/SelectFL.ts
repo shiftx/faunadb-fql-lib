@@ -1,4 +1,4 @@
-import { SplitString } from "./SplitString"
+import { StringSplit } from "./StringSplit"
 import { query as q, ExprArg, ExprVal } from "faunadb"
 
 export const SelectFL = (
@@ -11,12 +11,26 @@ export const SelectFL = (
             arr: q.If(
                 q.IsArray(arrOrString),
                 arrOrString,
-                SplitString(arrOrString)
+                q.Map(
+                    StringSplit(arrOrString),
+                    q.Lambda(
+                        "str",
+                        q.If(
+                            q.ContainsStrRegex(q.Var("str"), "^[0-9]$"),
+                            q.ToInteger(q.Var("str")),
+                            q.Var("str")
+                        )
+                    )
+                )
             ),
         },
         q.If(
-            q.Contains(q.Var("arr"), obj),
+            q.IsNull(fallbackExpr),
             q.Select(q.Var("arr"), obj),
-            fallbackExpr
+            q.If(
+                q.Contains(q.Var("arr"), obj),
+                q.Select(q.Var("arr"), obj),
+                fallbackExpr
+            )
         )
     )
