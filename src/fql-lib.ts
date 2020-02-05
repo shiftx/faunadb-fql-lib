@@ -1,5 +1,7 @@
+export { ArrayReverse } from "./functions/ArrayReverse"
 export { MapExtended } from "./functions/MapExtended"
 export { ObjectKeys } from "./functions/ObjectKeys"
 export { PageToObject } from "./functions/PageToObject"
 export { PaginateReverse } from "./functions/PaginateReverse"
-export { ArrayReverse } from "./functions/ArrayReverse"
+export { SelectFL } from "./functions/SelectFL"
+export { SplitString } from "./functions/SplitString"
