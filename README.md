@@ -17,10 +17,10 @@ import { query as q } from "faunadb-fql-lib"
 
 ## Functions
 
-* [`MapExtended`](`#MapExtended`)
-* [`ObjectKeys`](`#ObjectKeys`)
-* [`Reverse`](`#Reverse`)
-* [`PaginateReverse`](`#PaginateReverse`)
+* [`MapExtended`](#MapExtended)
+* [`ObjectKeys`](#ObjectKeys)
+* [`Reverse`](#Reverse)
+* [`PaginateReverse`](#PaginateReverse)
 
 ### `MapExtended`
 
