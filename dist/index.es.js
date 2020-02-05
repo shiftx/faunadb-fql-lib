@@ -1,8 +1,8 @@
 import { query } from 'faunadb';
 
-const MapFakePage = (fakePage, lambda) => query.Let({
-    data: query.Map(query.Select(["data"], fakePage), lambda),
-}, query.Merge(fakePage, { data: query.Var("data") }));
+const MapExtended = (collection, lambdaExpr) => query.If(query.IsArray(collection), query.Map(query.Select(["data"], collection), lambdaExpr), query.Let({
+    data: query.Map(query.Select(["data"], collection), lambdaExpr),
+}, query.Merge(collection, { data: query.Var("data") })));
 
 const Reverse = (arr) => query.Reduce(query.Lambda(["acc", "val"], query.Append(query.Var("acc"), [query.Var("val")])), [], arr);
 
@@ -25,4 +25,4 @@ const PaginateReverse = (set, opts) => query.Let({
     beforeObj: query.If(query.Or(query.Not(query.Contains(["after"], query.Var("result"))), query.Equals([null], query.Select(["after"], query.Var("result"), null))), {}, { before: query.Select(["after"], query.Var("result")) }),
 }, query.Merge(query.Merge(query.Var("afterObj"), query.Var("beforeObj")), query.Var("dataObj"))));
 
-export { MapFakePage, PaginateReverse, Reverse };
+export { MapExtended, PaginateReverse, Reverse };

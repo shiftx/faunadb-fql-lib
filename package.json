@@ -4,6 +4,7 @@
   "description": "A set of functions extending FQL by using current FQL primitives",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
+  "browser": "dist/index.min.js",
   "types": "dist/index.d.ts",
   "repository": "shiftx/faunadb-fql-lib",
   "files": [
@@ -27,7 +28,7 @@
     "rollup": "^1.31.0",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-node-resolve": "^5.2.0",
-    "rollup-plugin-terser": "^5.2.0",
+    "rollup-plugin-peer-deps-external": "^2.2.2",
     "rollup-plugin-typescript": "^1.0.1",
     "typescript": "^3.7.5"
   },

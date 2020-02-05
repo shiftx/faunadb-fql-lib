@@ -1,5 +1,5 @@
-import { MapFakePage } from "./functions/MapFakePage"
+import { MapExtended } from "./functions/MapExtended"
 import { PaginateReverse } from "./functions/PaginateReverse"
 import { Reverse } from "./functions/Reverse"
 
-export { MapFakePage, PaginateReverse, Reverse }
+export { MapExtended, PaginateReverse, Reverse }
