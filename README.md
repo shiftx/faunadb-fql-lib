@@ -11,8 +11,18 @@
 
 ### Usage
 
+#### Merged with faunadb-js query
+
+You can import query from faunadb-fql-lib and the functions will be merged with all of Faunas built-in functions.
+
 ```
 import { query as q } from "faunadb-fql-lib"
+```
+
+Or import each function as needed.
+
+```
+import { MapExtended } from "faunadb-fql-lib"
 ```
 
 ## Functions
@@ -38,18 +48,18 @@ MapExtended({ data: ["foo", "bar"]}, Lambda("item", q.Var("item"))) // => ["foo"
 Return the keys as array from an object
 
 ```js
-import { ObjectKeys } from "faunadb-fql-lib"
+import { query as q } from "faunadb-fql-lib"
 
-ObjectKeys({ foo: "1", bar: "2" }) // => ["foo", "bar"]
+q.ObjectKeys({ foo: "1", bar: "2" }) // => ["foo", "bar"]
 ```
 
 
 ### `Reverse`
 
 ```js
-import { Reverse } from "faunadb-fql-lib"
+import { query as q } from "faunadb-fql-lib"
 
-Reverse([1, 2, 3]) // => [3,2,1]
+q.Reverse([1, 2, 3]) // => [3,2,1]
 ```
 
 ### `PaginateReverse`
@@ -59,11 +69,10 @@ Paging a set in reverse is possible but a bit tricky. This pure FQL function tak
 NOTE: Wrapping `PaginateReverse` in `Map` will fail. Use `MapExtended` instead.
 
 ```js
-import { query as q } from "faunadb"
-import { PaginateReverse, MapExtended } from "faunadb-fql-lib"
+import { query as q } from "faunadb-fql-lib"
 
-MapExtended(
-    PaginateReverse(setRef, opts),
+q.MapExtended(
+    q.PaginateReverse(setRef, opts),
     q.Lambda("ref", q.Get(q.Var("ref")))
 )
 ```
