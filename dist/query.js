@@ -9,6 +9,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const faunadb_1 = require("faunadb");
 const fqlLibFunctions = __importStar(require("./fql-lib"));
-const mergeQueryFunctions_1 = require("./lib/mergeQueryFunctions");
-const query = mergeQueryFunctions_1.mergeQueryFunctions(faunadb_1.query, fqlLibFunctions);
+const checkNamingCollisions_1 = require("./lib/checkNamingCollisions");
+checkNamingCollisions_1.checkNamingCollisions(faunadb_1.query, fqlLibFunctions);
+const query = Object.assign(Object.assign({}, faunadb_1.query), fqlLibFunctions);
 exports.query = query;

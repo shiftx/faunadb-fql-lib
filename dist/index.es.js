@@ -34,7 +34,7 @@ var fqlLibFunctions = /*#__PURE__*/Object.freeze({
     Reverse: Reverse
 });
 
-const mergeQueryFunctions = (faunaFunctions, fqlLibFunctions) => {
+const checkNamingCollisions = (faunaFunctions, fqlLibFunctions) => {
     Object.keys(fqlLibFunctions).forEach(key => {
         if (faunaFunctions[key])
             throw new Error(`faunadb and faunadb-fql-lib both contain the ${key} function. Have you just updated faunadb? Make sure you have the latest version of faunadb-fql-lib.`);
@@ -42,6 +42,7 @@ const mergeQueryFunctions = (faunaFunctions, fqlLibFunctions) => {
     return Object.assign(Object.assign({}, fqlLibFunctions), faunaFunctions);
 };
 
-const query = mergeQueryFunctions(query$1, fqlLibFunctions);
+checkNamingCollisions(query$1, fqlLibFunctions);
+const query = Object.assign(Object.assign({}, query$1), fqlLibFunctions);
 
 export { MapExtended, PaginateReverse, Reverse, query };
