@@ -1,7 +1,7 @@
-export const mergeQueryFunctions = (
+export const checkNamingCollisions = (
     faunaFunctions: object,
     fqlLibFunctions: object
-): object => {
+) => {
     Object.keys(fqlLibFunctions).forEach(key => {
         if (faunaFunctions[key])
             throw new Error(

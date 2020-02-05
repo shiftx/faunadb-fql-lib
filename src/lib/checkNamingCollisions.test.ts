@@ -1,9 +1,9 @@
-import { mergeQueryFunctions } from "./mergeQueryFunctions"
+import { checkNamingCollisions } from "./checkNamingCollisions"
 
 test("faunadb functions should exists on query", () => {
     const faunaFuncs = { Map: () => {} }
     const fqlLibFuncs = { Map: () => {} }
     expect(() => {
-        mergeQueryFunctions(faunaFuncs, fqlLibFuncs)
+        checkNamingCollisions(faunaFuncs, fqlLibFuncs)
     }).toThrow()
 })

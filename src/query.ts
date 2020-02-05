@@ -1,7 +1,12 @@
 import { query as faunaFunctions } from "faunadb"
 import * as fqlLibFunctions from "./fql-lib"
-import { mergeQueryFunctions } from "./lib/mergeQueryFunctions"
+import { checkNamingCollisions } from "./lib/checkNamingCollisions"
 
-const query = mergeQueryFunctions(faunaFunctions, fqlLibFunctions)
+checkNamingCollisions(faunaFunctions, fqlLibFunctions)
+
+const query = {
+    ...faunaFunctions,
+    ...fqlLibFunctions,
+}
 
 export { query }
