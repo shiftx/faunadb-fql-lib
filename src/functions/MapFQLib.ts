@@ -1,7 +1,7 @@
 import { query as q, ExprArg, Lambda, ExprVal } from "faunadb"
 import { PageToObject } from "./PageToObject"
 
-export const MapExtended = (
+export const MapFQLib = (
     collection: ExprArg,
     lambdaExpr: ExprArg | Lambda
 ): ExprVal => {

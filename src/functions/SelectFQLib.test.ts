@@ -1,9 +1,9 @@
-import { SelectFL } from "./SelectFL"
+import { SelectFQLib } from "./SelectFQLib"
 
-describe("SelectFL", () => {
+describe("SelectFQLib", () => {
     const client = global.faunaClient
     test("works on objects", async () => {
-        const query = SelectFL("foo.bar.fooBar", {
+        const query = SelectFQLib("foo.bar.fooBar", {
             foo: { bar: { fooBar: "test" } },
         })
         const res = await client.query(query)
@@ -11,7 +11,7 @@ describe("SelectFL", () => {
     })
 
     test("fails on object when key is missing and no default", async () => {
-        const query = SelectFL("foo.bar", { no: "key" })
+        const query = SelectFQLib("foo.bar", { no: "key" })
         const err = await client.query(query).catch(err => err)
         expect(err.name).toBe("NotFound")
         expect(err.message).toBe("value not found")
@@ -21,13 +21,13 @@ describe("SelectFL", () => {
     })
 
     test("works on arrays", async () => {
-        const query = SelectFL("3.2.1", [0, 1, 2, [0, 1, ["foo", "bar"]]])
+        const query = SelectFQLib("3.2.1", [0, 1, 2, [0, 1, ["foo", "bar"]]])
         const res = await client.query(query)
         expect(res).toBe("bar")
     })
 
     test("fails on array when index not exists", async () => {
-        const query = SelectFL("3", [0, 1, 2])
+        const query = SelectFQLib("3", [0, 1, 2])
         const err = await client.query(query).catch(err => err)
         expect(err.name).toBe("NotFound")
         expect(err.message).toBe("value not found")
@@ -37,13 +37,13 @@ describe("SelectFL", () => {
     })
 
     test("works on combination of array and object", async () => {
-        const query = SelectFL("3.2.foo", [0, 1, 2, [0, 1, { foo: "bar" }]])
+        const query = SelectFQLib("3.2.foo", [0, 1, 2, [0, 1, { foo: "bar" }]])
         const res = await client.query(query)
         expect(res).toBe("bar")
     })
 
     test("works with default value", async () => {
-        const query = SelectFL("missing", { foo: "bar" }, "fallback")
+        const query = SelectFQLib("missing", { foo: "bar" }, "fallback")
         const res = await client.query(query)
         expect(res).toBe("fallback")
     })
