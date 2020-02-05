@@ -5,14 +5,6 @@
 
 ## Functions
 
-### `Reverse`
-
-```js
-import { Reverse } from "faunadb-fql-lib"
-
-Reverse([1, 2, 3]) // => [3,2,1]
-```
-
 ### `MapExtended`
 
 A wrapper around `Map` that also works on "Page-like" objects. There is currently no way to construct a Page object
@@ -21,7 +13,26 @@ in FQL so passing `{ data: []}` to Map will not work.
 ```js
 import { MapExtended } from "faunadb-fql-lib"
 
-MapExtended({ data: ['foo', 'bar']}, Lambda('item', q.Var('item'))) // => ['foo', 'bar']
+MapExtended({ data: ["foo", "bar"]}, Lambda("item", q.Var("item"))) // => ["foo", "bar"]
+```
+
+### `ObjectKeys`
+
+Return the keys as array from an object
+
+```js
+import { ObjectKeys } from "faunadb-fql-lib"
+
+ObjectKeys({ foo: "1", bar: "2" }) // => ["foo", "bar"]
+```
+
+
+### `Reverse`
+
+```js
+import { Reverse } from "faunadb-fql-lib"
+
+Reverse([1, 2, 3]) // => [3,2,1]
 ```
 
 ### `PaginateReverse`
