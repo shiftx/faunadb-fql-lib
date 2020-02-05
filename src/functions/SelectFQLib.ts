@@ -15,14 +15,15 @@ export const SelectFQLib = (
                 q.Var("path"),
                 DotNotationStringToArray(q.Var("path"))
             ),
+            exists: q.Contains(q.Var("pathArray"), q.Var("from")),
         },
         q.If(
-            q.IsNull(fallbackExpr),
+            q.Contains(q.Var("pathArray"), q.Var("from")),
             q.Select(q.Var("pathArray"), q.Var("from")),
             q.If(
-                q.Contains(q.Var("pathArray"), q.Var("from")),
+                q.IsNull(fallbackExpr),
                 q.Select(q.Var("pathArray"), q.Var("from")),
-                fallbackExpr
+                q.Select(q.Var("pathArray"), q.Var("from"), fallbackExpr)
             )
         )
     )

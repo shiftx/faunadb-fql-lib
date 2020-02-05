@@ -23,3 +23,11 @@ const opts =
           }
 
 global.faunaClient = new Client(opts)
+
+global.faunaClient.query(
+    q.If(
+        q.Exists(q.Collection("Foos")),
+        null,
+        q.CreateCollection({ name: "Foos" })
+    )
+)

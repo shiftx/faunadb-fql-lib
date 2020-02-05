@@ -1,3 +1,4 @@
+import { query as q } from "faunadb"
 import { SelectFQLib } from "./SelectFQLib"
 
 describe("SelectFQLib", () => {
@@ -48,9 +49,36 @@ describe("SelectFQLib", () => {
         expect(res).toBe("fallback")
     })
 
-    // test("fallback does not evaluate if there is a match", async () => {
-    //     const query = SelectFL("missing", { foo: "bar" }, q.Create())
-    //     const res = await client.query(query)
-    //     expect(res).toBe("fallback")
-    // })
+    test("fallback does not evaluate if there is a match", async () => {
+        const [ref1, ref2, ref3] = await client.query([
+            q.Ref(q.Collection("Foos"), q.NewId()),
+            q.Ref(q.Collection("Foos"), q.NewId()),
+            q.Ref(q.Collection("Foos"), q.NewId()),
+        ])
+        const query = {
+            select: q.Select(
+                ["foo"],
+                { foo: "bar" },
+                q.Create(ref1, { data: { foo: "this will be created" } })
+            ),
+            selectFQLib: SelectFQLib(
+                ["foo"],
+                { foo: "bar" },
+                q.Create(ref2, { data: { foo: "this should not be created" } })
+            ),
+            if: q.If(
+                true,
+                null,
+                q.Create(ref3, { data: { foo: "this should not be created" } })
+            ),
+            ref1Exists: q.Exists(ref1),
+            ref2Exists: q.Exists(ref2),
+            ref3Exists: q.Exists(ref3),
+        }
+
+        const res = await client.query(query)
+        expect(res.ref1Exists).toBe(true)
+        expect(res.ref2Exists).toBe(false)
+        expect(res.ref3Exists).toBe(false)
+    })
 })
