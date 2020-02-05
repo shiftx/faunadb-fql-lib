@@ -2,6 +2,7 @@
 
 [![Npm Version](https://img.shields.io/npm/v/faunadb-fql-lib)](https://www.npmjs.com/package/faunadb-fql-lib)
 [![License](https://img.shields.io/npm/l/faunadb-fql-lib)](https://raw.githubusercontent.com/shiftx/faunadb-fql-lib/master/LICENSE)
+![Test](https://github.com/shiftx/faunadb-fql-lib/workflows/Test/badge.svg)
 
 ## Quickstart
 
