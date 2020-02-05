@@ -8,7 +8,7 @@
 
 ### Installation
 
-`yarn add faunadb-fql-lib` or `npm install aunadb-fql-lib`
+`yarn add faunadb-fql-lib` or `npm install faunadb-fql-lib`
 
 ### Usage
 
