@@ -1,6 +1,6 @@
 {
   "name": "faunadb-fql-lib",
-  "version": "0.8.0-1",
+  "version": "0.8.0",
   "description": "A set of functions extending FQL by using current FQL primitives",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
