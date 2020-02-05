@@ -3,7 +3,24 @@
 [![Npm Version](https://img.shields.io/npm/v/faunadb-fql-lib)](https://www.npmjs.com/package/faunadb-fql-lib)
 [![License](https://img.shields.io/npm/l/faunadb-fql-lib)](https://raw.githubusercontent.com/shiftx/faunadb-fql-lib/master/LICENSE)
 
+## Quickstart
+
+### Installation
+
+`yarn add faunadb-fql-lib` or `npm install aunadb-fql-lib`
+
+### Usage
+
+```
+import { query as q } from "faunadb-fql-lib"
+```
+
 ## Functions
+
+* [`MapExtended`](`#MapExtended`)
+* [`ObjectKeys`](`#ObjectKeys`)
+* [`Reverse`](`#Reverse`)
+* [`PaginateReverse`](`#PaginateReverse`)
 
 ### `MapExtended`
 
