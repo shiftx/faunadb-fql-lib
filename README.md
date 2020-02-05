@@ -39,7 +39,7 @@ All functions in this library are built using pure FQL. That means that they are
 * [`PageToObject`](#PageToObject)
 * [`StringSplit`](#PaginateReverse)
 
-### [`FQLib functions - alternatives to built-in FQL functions`](#FQLibFunctions)
+### [`FQLib functions`](#fqlib-functions) - alternatives to built-in FQL functions
 
 These are functions that extend and/or alternate the behaviour of existing FQL functions.
 All functions suffixed with `FQLib` already exists but behaves differently.
