@@ -5,7 +5,7 @@ export const SplitString = (string: ExprArg, delimiter = "."): ExprVal =>
         q.Not(q.IsString(string)),
         q.Abort("SplitString only accept strings"),
         q.Map(
-            q.FindStrRegex("data.doc", q.Concat(["[^\\", delimiter, "]+"])),
+            q.FindStrRegex(string, q.Concat(["[^\\", delimiter, "]+"])),
             q.Lambda("res", q.Select(["data"], q.Var("res")))
         )
     )
