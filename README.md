@@ -142,11 +142,9 @@ SelectFQLib([foo, 1], { foo: ["a", "b"] }) // => "b"
 SelectFQLib("foo.1", { foo: ["a", "b"] }) // => "b"
 SelectFQLib("bar.2", { foo: ["a", "b"] }, "default") // => "default"
 
-/*
-The below will create a document even if the value was found
-*/
-
+// The current Select in FQL always evaluates the default statement and will create a document even if the value was found
 Select(["bar", 0], { foo: ["a", "b"] }, q.Create(q.Collection('Foos'))) // => "a" + document created in Foos
+// SelectFQLLib will only evaluate if there is no match, so mutations are safe
 SelectFQLib(["bar", 0], { foo: ["a", "b"] }, q.Create(q.Collection('Foos'))) // => "a" no ducument created
 ```
 
