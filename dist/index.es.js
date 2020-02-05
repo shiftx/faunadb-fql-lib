@@ -1,28 +1,47 @@
-import { query } from 'faunadb';
+import { query as query$1 } from 'faunadb';
 
-const MapExtended = (collection, lambdaExpr) => query.If(query.IsArray(collection), query.Map(query.Select(["data"], collection), lambdaExpr), query.Let({
-    data: query.Map(query.Select(["data"], collection), lambdaExpr),
-}, query.Merge(collection, { data: query.Var("data") })));
+const MapExtended = (collection, lambdaExpr) => query$1.If(query$1.IsArray(collection), query$1.Map(query$1.Select(["data"], collection), lambdaExpr), query$1.Let({
+    data: query$1.Map(query$1.Select(["data"], collection), lambdaExpr),
+}, query$1.Merge(collection, { data: query$1.Var("data") })));
 
-const Reverse = (arr) => query.Reduce(query.Lambda(["acc", "val"], query.Append(query.Var("acc"), [query.Var("val")])), [], arr);
+const Reverse = (arr) => query$1.Reduce(query$1.Lambda(["acc", "val"], query$1.Append(query$1.Var("acc"), [query$1.Var("val")])), [], arr);
 
-const PaginateReverse = (set, opts) => query.Let({
-    after: query.Select(["before"], opts, null),
-    before: query.Select(["after"], opts, null),
-    size: query.Select(["size"], opts, 64),
-    result: query.If(query.And(query.IsNull(query.Var("after")), query.IsNull(query.Var("before"))), query.Paginate(set, { before: [null], size: query.Var("size") }), query.If(query.IsNull(query.Var("after")), query.Paginate(set, {
-        before: query.Var("before"),
-        size: query.Var("size"),
-    }), query.Paginate(set, {
-        after: query.Var("after"),
-        size: query.Var("size"),
+const PaginateReverse = (set, opts) => query$1.Let({
+    after: query$1.Select(["before"], opts, null),
+    before: query$1.Select(["after"], opts, null),
+    size: query$1.Select(["size"], opts, 64),
+    result: query$1.If(query$1.And(query$1.IsNull(query$1.Var("after")), query$1.IsNull(query$1.Var("before"))), query$1.Paginate(set, { before: [null], size: query$1.Var("size") }), query$1.If(query$1.IsNull(query$1.Var("after")), query$1.Paginate(set, {
+        before: query$1.Var("before"),
+        size: query$1.Var("size"),
+    }), query$1.Paginate(set, {
+        after: query$1.Var("after"),
+        size: query$1.Var("size"),
     }))),
-}, query.Let({
+}, query$1.Let({
     dataObj: {
-        data: Reverse(query.Select(["data"], query.Var("result"))),
+        data: Reverse(query$1.Select(["data"], query$1.Var("result"))),
     },
-    afterObj: query.If(query.Contains(["before"], query.Var("result")), { after: query.Select(["before"], query.Var("result")) }, {}),
-    beforeObj: query.If(query.Or(query.Not(query.Contains(["after"], query.Var("result"))), query.Equals([null], query.Select(["after"], query.Var("result"), null))), {}, { before: query.Select(["after"], query.Var("result")) }),
-}, query.Merge(query.Merge(query.Var("afterObj"), query.Var("beforeObj")), query.Var("dataObj"))));
+    afterObj: query$1.If(query$1.Contains(["before"], query$1.Var("result")), { after: query$1.Select(["before"], query$1.Var("result")) }, {}),
+    beforeObj: query$1.If(query$1.Or(query$1.Not(query$1.Contains(["after"], query$1.Var("result"))), query$1.Equals([null], query$1.Select(["after"], query$1.Var("result"), null))), {}, { before: query$1.Select(["after"], query$1.Var("result")) }),
+}, query$1.Merge(query$1.Merge(query$1.Var("afterObj"), query$1.Var("beforeObj")), query$1.Var("dataObj"))));
 
-export { MapExtended, PaginateReverse, Reverse };
+
+
+var fqlLibFunctions = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    MapExtended: MapExtended,
+    PaginateReverse: PaginateReverse,
+    Reverse: Reverse
+});
+
+const mergeQueryFunctions = (faunaFunctions, fqlLibFunctions) => {
+    Object.keys(fqlLibFunctions).forEach(key => {
+        if (faunaFunctions[key])
+            throw new Error(`faunadb and faunadb-fql-lib both contain the ${key} function. Have you just updated faunadb? Make sure you have the latest version of faunadb-fql-lib.`);
+    });
+    return Object.assign(Object.assign({}, fqlLibFunctions), faunaFunctions);
+};
+
+const query = mergeQueryFunctions(query$1, fqlLibFunctions);
+
+export { MapExtended, PaginateReverse, Reverse, query };

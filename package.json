@@ -20,6 +20,10 @@
     "release": "np"
   },
   "devDependencies": {
+    "@babel/core": "^7.8.4",
+    "@babel/preset-env": "^7.8.4",
+    "@babel/preset-typescript": "^7.8.3",
+    "@types/jest": "^25.1.1",
     "eslint": "^6.8.0",
     "faunadb": "^2.11.1",
     "jest": "^25.1.0",
