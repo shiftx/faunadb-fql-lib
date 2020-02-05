@@ -23,7 +23,7 @@ export const SelectFQLib = (
             q.If(
                 q.IsNull(fallbackExpr),
                 q.Select(q.Var("pathArray"), q.Var("from")),
-                q.Select(q.Var("pathArray"), q.Var("from"), fallbackExpr)
+                fallbackExpr
             )
         )
     )
