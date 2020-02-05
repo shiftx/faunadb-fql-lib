@@ -17,7 +17,7 @@
   "scripts": {
     "build": "rm -rf dist && rollup -c && tsc",
     "test": "jest",
-    "release": "np --contents=dist"
+    "release": "np"
   },
   "devDependencies": {
     "eslint": "^6.8.0",
