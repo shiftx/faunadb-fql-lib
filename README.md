@@ -13,7 +13,8 @@
 
 #### Merged with faunadb-js query
 
-You can import query from faunadb-fql-lib and the functions will be merged with all of Faunas built-in functions.
+You can import `query` from faunadb-fql-lib and the functions will be merged with all of Faunas built-in functions.
+If there is ever a naming conflict in an updated version of faunadb-js then this will throw an error.
 
 ```
 import { query as q } from "faunadb-fql-lib"
@@ -29,7 +30,7 @@ import { MapExtended } from "faunadb-fql-lib"
 
 * [`MapExtended`](#MapExtended)
 * [`ObjectKeys`](#ObjectKeys)
-* [`Reverse`](#Reverse)
+* [`ArrayReverse`](#ArrayReverse)
 * [`PaginateReverse`](#PaginateReverse)
 
 ### `MapExtended`
@@ -54,12 +55,12 @@ q.ObjectKeys({ foo: "1", bar: "2" }) // => ["foo", "bar"]
 ```
 
 
-### `Reverse`
+### `ArrayReverse`
 
 ```js
 import { query as q } from "faunadb-fql-lib"
 
-q.Reverse([1, 2, 3]) // => [3,2,1]
+q.ArrayReverse([1, 2, 3]) // => [3,2,1]
 ```
 
 ### `PaginateReverse`

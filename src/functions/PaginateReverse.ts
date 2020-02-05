@@ -1,5 +1,5 @@
 import { query as q, values } from "faunadb"
-import { Reverse } from "./Reverse"
+import { ArrayReverse } from "./ArrayReverse"
 
 export const PaginateReverse = (set: values.SetRef, opts: {}) =>
     q.Let(
@@ -26,7 +26,7 @@ export const PaginateReverse = (set: values.SetRef, opts: {}) =>
         q.Let(
             {
                 dataObj: {
-                    data: Reverse(q.Select(["data"], q.Var("result"))),
+                    data: ArrayReverse(q.Select(["data"], q.Var("result"))),
                 },
                 afterObj: q.If(
                     q.Contains(["before"], q.Var("result")),
