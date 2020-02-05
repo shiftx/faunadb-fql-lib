@@ -1,11 +1,13 @@
 declare const query: {
     MapExtended: (collection: import("faunadb").ExprArg, lambdaExpr: string | number | boolean | import("faunadb").Expr | {
         [key: string]: any;
-    } | import("faunadb").ExprVal[] | import("faunadb").Lambda) => import("faunadb").Expr;
+    } | import("faunadb").ExprVal[] | import("faunadb").Lambda) => import("faunadb").ExprVal;
+    ObjectKeys: (object: import("faunadb").ExprArg) => import("faunadb").ExprVal;
+    PageToObject: (page: import("faunadb").ExprArg) => import("faunadb").ExprVal;
     PaginateReverse: (set: import("faunadb").values.SetRef, opts: {}) => import("faunadb").Expr;
     Reverse: (arr: string | number | boolean | [] | import("faunadb").Expr | {
         [key: string]: any;
-    }) => import("faunadb").Expr;
+    } | import("faunadb").ExprVal[]) => import("faunadb").ExprVal;
     Ref(ref: import("faunadb").ExprArg, id?: import("faunadb").ExprArg): import("faunadb").Expr;
     Bytes(bytes: string | number | boolean | ArrayBuffer | Uint8Array | import("faunadb").Expr | {
         [key: string]: any;

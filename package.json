@@ -17,7 +17,7 @@
   "scripts": {
     "build": "rm -rf dist && rollup -c && tsc",
     "test": "jest",
-    "release": "np"
+    "release": "yarn build && np"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",

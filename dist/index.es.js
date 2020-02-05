@@ -1,8 +1,25 @@
 import { query as query$1 } from 'faunadb';
 
-const MapExtended = (collection, lambdaExpr) => query$1.If(query$1.IsArray(collection), query$1.Map(query$1.Select(["data"], collection), lambdaExpr), query$1.Let({
-    data: query$1.Map(query$1.Select(["data"], collection), lambdaExpr),
-}, query$1.Merge(collection, { data: query$1.Var("data") })));
+const PageToObject = (page) => 
+/*
+    Is this a bug? Using as a feature in this case.
+    q.Merge({}, { foo: null })            // => {}
+    q.Merge({foo: null }, { foo: null })  // => {}
+    q.Merge({foo: null }, {})             // => { foo: null }
+*/
+query$1.Merge({}, {
+    before: query$1.Select(["before"], page, null),
+    after: query$1.Select(["after"], page, null),
+    data: query$1.Select(["data"], page),
+});
+
+const MapExtended = (collection, lambdaExpr) => {
+    return query$1.If(query$1.IsArray(collection), query$1.Map(collection, lambdaExpr), query$1.Let({
+        data: query$1.Map(query$1.Select(["data"], collection), lambdaExpr),
+    }, query$1.Merge(PageToObject(collection), { data: query$1.Var("data") })));
+};
+
+const ObjectKeys = (object) => query$1.Map(query$1.ToArray(object), query$1.Lambda(["k", "v"], query$1.Var("k")));
 
 const Reverse = (arr) => query$1.Reduce(query$1.Lambda(["acc", "val"], query$1.Append(query$1.Var("acc"), [query$1.Var("val")])), [], arr);
 
@@ -30,6 +47,8 @@ const PaginateReverse = (set, opts) => query$1.Let({
 var fqlLibFunctions = /*#__PURE__*/Object.freeze({
     __proto__: null,
     MapExtended: MapExtended,
+    ObjectKeys: ObjectKeys,
+    PageToObject: PageToObject,
     PaginateReverse: PaginateReverse,
     Reverse: Reverse
 });
@@ -45,4 +64,4 @@ const checkNamingCollisions = (faunaFunctions, fqlLibFunctions) => {
 checkNamingCollisions(query$1, fqlLibFunctions);
 const query = Object.assign(Object.assign({}, query$1), fqlLibFunctions);
 
-export { MapExtended, PaginateReverse, Reverse, query };
+export { MapExtended, ObjectKeys, PageToObject, PaginateReverse, Reverse, query };
