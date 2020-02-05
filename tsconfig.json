@@ -3,13 +3,10 @@
         "declaration": true,
         "declarationDir": "./dist",
         "moduleResolution": "node",
-        "noImplicitAny": true,
         "outDir": "./dist",
         "target": "es2015",
         "module": "commonjs",
-        "skipLibCheck": true,
-        "esModuleInterop": true,
-        "types": []
+        "esModuleInterop": true
     },
     "include": ["src/index.ts"],
     "exclude": ["node_modules"]
