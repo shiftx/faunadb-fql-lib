@@ -1,6 +1,7 @@
 export { ArrayReverse } from "./functions/ArrayReverse"
 export { ContainsFQLib } from "./functions/ContainsFQLib"
 export { Debug } from "./functions/Debug"
+export { GetAll } from "./functions/GetAll"
 export { MapFQLib } from "./functions/MapFQLib"
 export { ObjectKeys } from "./functions/ObjectKeys"
 export { PageToObject } from "./functions/PageToObject"
