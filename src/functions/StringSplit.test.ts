@@ -1,7 +1,8 @@
 import { StringSplit } from "./StringSplit"
+import { createClient } from "../../test/utils"
 
 describe("StringSplit", () => {
-    const client = global.faunaClient
+    const client = createClient()
     test("it defults to split on .", async () => {
         const query = StringSplit("foo.bar.fooBar")
         const res = await client.query(query)

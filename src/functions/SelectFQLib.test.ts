@@ -1,8 +1,9 @@
 import { query as q } from "faunadb"
 import { SelectFQLib } from "./SelectFQLib"
+import { createClient } from "../../test/utils"
 
 describe("SelectFQLib", () => {
-    const client = global.faunaClient
+    const client = createClient()
     test("works on objects", async () => {
         const query = SelectFQLib("foo.bar.fooBar", {
             foo: { bar: { fooBar: "test" } },

@@ -1,8 +1,9 @@
 import { query as q } from "faunadb"
+import { createClient } from "./../../test/utils"
 import { Debug } from "./Debug"
 
 describe("Debug", () => {
-    const client = global.faunaClient
+    const client = createClient()
     test("debug takes an expression and returns as json", async () => {
         const object = { foo: "1", bar: q.Add(1, 2) }
         const query = Debug(object)

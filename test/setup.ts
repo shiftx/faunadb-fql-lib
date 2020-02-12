@@ -1,30 +1,7 @@
-import { Client, query as q } from "faunadb"
+import { query as q } from "faunadb"
+import { createClient } from "./utils"
 
-// const globalAny: any = global
-
-declare global {
-    namespace NodeJS {
-        interface Global {
-            faunaClient: Client
-        }
-    }
-}
-
-const opts =
-    process.env.CI === "true"
-        ? {
-              secret: process.env.FAUNA_DB_SECRET,
-          }
-        : {
-              secret: "secret",
-              scheme: "http",
-              port: 8443,
-              domain: "localhost",
-          }
-
-global.faunaClient = new Client(opts)
-
-global.faunaClient.query(
+createClient().query(
     q.If(
         q.Exists(q.Collection("Foos")),
         null,

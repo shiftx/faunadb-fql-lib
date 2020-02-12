@@ -1,7 +1,8 @@
 import { ContainsFQLib } from "./ContainsFQLib"
+import { createClient } from "../../test/utils"
 
 describe("ContainsFQLib", () => {
-    const client = global.faunaClient
+    const client = createClient()
     test("works on objects", async () => {
         const query = ContainsFQLib("foo.bar.fooBar", {
             foo: { bar: { fooBar: "test" } },
