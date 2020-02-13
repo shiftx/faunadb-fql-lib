@@ -17,7 +17,7 @@
   "scripts": {
     "build": "rm -rf dist && rollup -c && tsc",
     "test": "jest",
-    "release": "yarn build && np"
+    "release": "yarn build && release-it"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",
@@ -31,6 +31,7 @@
     "jest": "^25.1.0",
     "np": "6.0.0",
     "prettier": "^1.19.1",
+    "release-it": "^12.4.3",
     "rollup": "^1.31.0",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-node-resolve": "^5.2.0",
