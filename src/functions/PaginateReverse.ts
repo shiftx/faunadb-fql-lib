@@ -1,7 +1,8 @@
-import { query as q, ExprArg, Expr } from "faunadb"
+import { query as q } from "faunadb"
+import { ExprVal, ExprArg } from "../types/fauna"
 import { ArrayReverse } from "./ArrayReverse"
 
-export const PaginateReverse = (set: ExprArg, opts: {} = {}): Expr =>
+export const PaginateReverse = (set: ExprArg, opts: {} = {}): ExprVal =>
     q.Let(
         {
             after: q.Select(["before"], opts, null),

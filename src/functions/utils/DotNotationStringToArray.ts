@@ -1,7 +1,8 @@
-import { query as q, ExprArg } from "faunadb"
+import { query as q } from "faunadb"
 import { StringSplit } from "../StringSplit"
+import { ExprVal, ExprArg } from "../../types/fauna"
 
-export const DotNotationStringToArray = (string: ExprArg) =>
+export const DotNotationStringToArray = (string: ExprArg): ExprVal =>
     q.Map(
         StringSplit(string),
         q.Lambda(

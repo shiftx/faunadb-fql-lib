@@ -51,6 +51,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["rollup-plugin-node-resolve", "virtual:f1420f605cd7e8589ca877513b0d17973408f969fd494ef7aedaf71cf4bc8fe717a2889d83a6ac14490b09a17856fdce7babfe3352c17f3afc4a2b981e0a39e6#npm:5.2.0"],
             ["rollup-plugin-peer-deps-external", "virtual:f1420f605cd7e8589ca877513b0d17973408f969fd494ef7aedaf71cf4bc8fe717a2889d83a6ac14490b09a17856fdce7babfe3352c17f3afc4a2b981e0a39e6#npm:2.2.2"],
             ["rollup-plugin-typescript", "virtual:f1420f605cd7e8589ca877513b0d17973408f969fd494ef7aedaf71cf4bc8fe717a2889d83a6ac14490b09a17856fdce7babfe3352c17f3afc4a2b981e0a39e6#npm:1.0.1"],
+            ["tslib", "npm:1.10.0"],
             ["typescript", "patch:typescript@npm%3A3.7.5#builtin<compat/typescript>::version=3.7.5&hash=273569"]
           ],
           "packagePeers": [
@@ -3796,6 +3797,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["rollup-plugin-node-resolve", "virtual:f1420f605cd7e8589ca877513b0d17973408f969fd494ef7aedaf71cf4bc8fe717a2889d83a6ac14490b09a17856fdce7babfe3352c17f3afc4a2b981e0a39e6#npm:5.2.0"],
             ["rollup-plugin-peer-deps-external", "virtual:f1420f605cd7e8589ca877513b0d17973408f969fd494ef7aedaf71cf4bc8fe717a2889d83a6ac14490b09a17856fdce7babfe3352c17f3afc4a2b981e0a39e6#npm:2.2.2"],
             ["rollup-plugin-typescript", "virtual:f1420f605cd7e8589ca877513b0d17973408f969fd494ef7aedaf71cf4bc8fe717a2889d83a6ac14490b09a17856fdce7babfe3352c17f3afc4a2b981e0a39e6#npm:1.0.1"],
+            ["tslib", "npm:1.10.0"],
             ["typescript", "patch:typescript@npm%3A3.7.5#builtin<compat/typescript>::version=3.7.5&hash=273569"]
           ],
           "packagePeers": [
@@ -7857,7 +7859,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["rollup-plugin-typescript", "virtual:f1420f605cd7e8589ca877513b0d17973408f969fd494ef7aedaf71cf4bc8fe717a2889d83a6ac14490b09a17856fdce7babfe3352c17f3afc4a2b981e0a39e6#npm:1.0.1"],
             ["resolve", "patch:resolve@npm%3A1.15.0#builtin<compat/resolve>::version=1.15.0&hash=8fccd0"],
             ["rollup-pluginutils", "npm:2.8.2"],
-            ["tslib", null],
+            ["tslib", "npm:1.10.0"],
             ["typescript", "patch:typescript@npm%3A3.7.5#builtin<compat/typescript>::version=3.7.5&hash=273569"]
           ],
           "packagePeers": [

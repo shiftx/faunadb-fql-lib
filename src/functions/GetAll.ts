@@ -1,4 +1,5 @@
-import { query as q, ExprArg, ExprVal } from "faunadb"
+import { query as q } from "faunadb"
+import { ExprVal, ExprArg } from "../types/fauna"
 import { MapFQLib } from "./MapFQLib"
 
 export const GetAll = (expr: ExprArg): ExprVal =>
