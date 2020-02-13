@@ -31,27 +31,29 @@ import { MapFQLib } from "faunadb-fql-lib"
 
 All functions in this library are built using pure FQL. That means that they are also safe to use in stored Fauna Functions.
 
-### [`Functions`](#Functions)
+### [Functions](#Functions)
 
-* [`ArrayReverse`](#ArrayReverse)
-* [`ObjectKeys`](#ObjectKeys)
-* [`PaginateReverse`](#PaginateReverse)
-* [`PageToObject`](#PageToObject)
-* [`StringSplit`](#PaginateReverse)
+* [ArrayReverse](#ArrayReverse)
+* [GetAll](#GetAll)
+* [ObjectKeys](#ObjectKeys)
+* [PaginateReverse](#PaginateReverse)
+* [PageToObject](#PageToObject)
+* [StringSplit](#PaginateReverse)
+* [ToJson](#ToJson)
 
-### [`FQLib functions`](#fqlib-functions) - alternatives to built-in FQL functions
+### [FQLib functions](#fqlib-functions) - alternatives to built-in FQL functions
 
 These are functions that extend and/or alternate the behaviour of existing FQL functions.
 All functions suffixed with `FQLib` already exists but behaves differently.
 
-* [`ContainsFQLib`](#ContainsFQLib)
-* [`MapFQLib`](#MapFQLib)
-* [`SelectFQLib`](#SelectFQLib)
+* [ContainsFQLib](#ContainsFQLib)
+* [MapFQLib](#MapFQLib)
+* [SelectFQLib](#SelectFQLib)
 
 ## Functions
 
 
-### `ArrayReverse`
+### ArrayReverse
 
 ```js
 import { query as q } from "faunadb-fql-lib"
@@ -59,8 +61,33 @@ import { query as q } from "faunadb-fql-lib"
 q.ArrayReverse([1, 2, 3]) // => [3,2,1]
 ```
 
+### GetAll
 
-### `ObjectKeys`
+For indexes returning only one Ref as value GetAll is a shorthand for using map to Get all items.
+
+```js
+import { query as q } from "faunadb-fql-lib"
+
+// These two queries are the same.
+
+q.GetAll(
+    q.Paginate(
+        q.Documents(q.Collection('Foos')),
+        { size: 10 }
+    )
+)
+
+q.Map(
+    q.Paginate(
+        q.Documents(q.Collection('Foos')),
+        { size: 10 }
+    ),
+    q.Lambda('ref', q.Get(q.Var('ref')))
+)
+```
+
+
+### ObjectKeys
 
 ```js
 import { query as q } from "faunadb-fql-lib"
@@ -68,7 +95,7 @@ import { query as q } from "faunadb-fql-lib"
 q.ObjectKeys({ foo: "1", bar: "2" }) // => ["foo", "bar"]
 ```
 
-### `PaginateReverse`
+### PaginateReverse
 
 Paging a set in reverse is possible but a bit tricky. This pure FQL function takes away the pain. Use it like Paginate.
 
@@ -83,7 +110,18 @@ q.MapFQLib(
 )
 ```
 
-### `PageToObject`
+### ToJson
+
+A simple wrapper around `Format` that takes any expression and returns it as a JSON string. Also great for returning errors in `q.Abort()`.
+
+```js
+import { query as q } from "faunadb-fql-lib"
+
+q.ToJson({ foo: "1", bar: q.Add(1, 2) }) // => {"foo":"1","bar":3}
+```
+
+
+### PageToObject
 
 This function takes the `before`, `after` and `data` properties on Page and creates an Object.
 Usful with other functions that don"t accept Pages. PageToObject is used by MapFQLib.
@@ -94,7 +132,7 @@ import { query as q } from "faunadb-fql-lib"
 q.PageToObject(q.Paginate(...))
 ```
 
-### `StringSplit`
+### StringSplit
 
 Takes a string and an optional delimiter (defaults to `.`) and splits the string into an array.
 
@@ -108,7 +146,7 @@ q.StringSplit("foo-bar-fooBar", "-") // => ["foo", "bar", "fooBar"]
 
 ## FQLib functions
 
-### `ContainsFQLib`
+### ContainsFQLib
 
 Alternative to `Contains` that supports both array and string as path.
 
@@ -119,7 +157,7 @@ ContainsFQLib([foo, 1], { foo: ["a", "b"] }) // => true
 ContainsFQLib("foo.1", { foo: ["a", "b"] }) // => true
 ```
 
-### `MapFQLib`
+### MapFQLib
 
 A wrapper around `Map` that also works on "Page-like" objects. There is currently no way
 to construct a Page object in FQL so passing `{ data: [] }` to Map will not work.
@@ -130,7 +168,7 @@ import { MapFQLib } from "faunadb-fql-lib"
 MapFQLib({ data: ["foo", "bar"]}, Lambda("item", q.Var("item"))) // => ["foo", "bar"]
 ```
 
-### `SelectFQLib`
+### SelectFQLib
 
 Alternative to `Select` that supports both array and string as path and does not evaluate
 the default value unless there is no match.
