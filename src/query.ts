@@ -4,7 +4,7 @@ import { checkNamingCollisions } from "./lib/checkNamingCollisions"
 
 checkNamingCollisions(faunaFunctions, fqlLibFunctions)
 
-const query: object = {
+const query = {
     ...faunaFunctions,
     ...fqlLibFunctions,
 }

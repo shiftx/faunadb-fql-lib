@@ -1,13 +1,6 @@
-import { query as q } from "faunadb"
-import { ExprVal, ExprArg } from "../types/fauna"
+import { query as q, ExprVal, ExprArg } from "faunadb"
 
 export const PageToObject = (page: ExprArg): ExprVal =>
-    /*
-        Is this a bug? Using as a feature in this case.
-        q.Merge({}, { foo: null })            // => {}
-        q.Merge({foo: null }, { foo: null })  // => {}
-        q.Merge({foo: null }, {})             // => { foo: null }
-    */
     q.Merge(
         {},
         {

@@ -1,6 +1,5 @@
-import { query as q } from "faunadb"
+import { query as q, ExprVal, ExprArg } from "faunadb"
 import { DotNotationStringToArray } from "./utils/DotNotationStringToArray"
-import { ExprVal, ExprArg } from "../types/fauna"
 
 export const ContainsFQLib = (
     path: string | [string] | ExprArg,

@@ -1,5 +1,4 @@
-import { query as q } from "faunadb"
-import { ExprVal, ExprArg } from "../types/fauna"
+import { query as q, ExprVal, ExprArg } from "faunadb"
 
 export const StringSplit = (string: ExprArg, delimiter = "."): ExprVal =>
     q.If(
