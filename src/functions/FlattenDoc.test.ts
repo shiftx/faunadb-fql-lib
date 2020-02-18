@@ -15,4 +15,17 @@ describe("FlattenDoc", () => {
             new Set(["ref", "ts", "bar", "foo"])
         )
     })
+
+    test("test flatten doc with nested data in data", async () => {
+        const query = FlattenDoc(
+            q.Create(q.Collection("Foos"), {
+                data: { foo: "bar", data: { nested: "works" } },
+            })
+        )
+        const res = await client.query(query).catch(err => err)
+        expect(res.data.nested).toBe("works")
+        expect(new Set(Object.keys(res))).toEqual(
+            new Set(["ref", "ts", "foo", "data"])
+        )
+    })
 })
