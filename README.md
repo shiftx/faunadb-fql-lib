@@ -34,12 +34,14 @@ All functions in this library are built using pure FQL. That means that they are
 ### [Functions](#Functions)
 
 * [ArrayReverse](#ArrayReverse)
+* [FlattenDoc](#FlattenDoc)
 * [GetAll](#GetAll)
 * [ObjectKeys](#ObjectKeys)
 * [PaginateReverse](#PaginateReverse)
 * [PageToObject](#PageToObject)
 * [StringSplit](#PaginateReverse)
 * [ToJson](#ToJson)
+* [WithIndex](#WithIndex)
 
 ### [FQLib functions](#fqlib-functions) - alternatives to built-in FQL functions
 
@@ -59,6 +61,26 @@ All functions suffixed with `FQLib` already exists but behaves differently.
 import { query as q } from "faunadb-fql-lib"
 
 q.ArrayReverse([1, 2, 3]) // => [3,2,1]
+```
+
+### FlattenDoc
+
+```js
+import { query as q } from "faunadb-fql-lib"
+
+q.FlattenDoc({
+    ref: q.Ref(q.Collection("Foos"), "1"),
+    ts: 1234,
+    data: {
+        foo: 1,
+        bar: 2
+    }
+}) /* => {
+    ref: q.Ref(q.Collection("Foos"), "1"),
+    ts: 1234,
+    foo: 1,
+    bar: 2
+} */
 ```
 
 ### GetAll
@@ -95,6 +117,17 @@ import { query as q } from "faunadb-fql-lib"
 q.ObjectKeys({ foo: "1", bar: "2" }) // => ["foo", "bar"]
 ```
 
+### PageToObject
+
+This function takes the `before`, `after` and `data` properties on Page and creates an Object.
+Usful with other functions that don"t accept Pages. PageToObject is used by MapFQLib.
+
+```js
+import { query as q } from "faunadb-fql-lib"
+
+q.PageToObject(q.Paginate(...))
+```
+
 ### PaginateReverse
 
 Paging a set in reverse is possible but a bit tricky. This pure FQL function takes away the pain. Use it like Paginate.
@@ -110,28 +143,6 @@ q.MapFQLib(
 )
 ```
 
-### ToJson
-
-A simple wrapper around `Format` that takes any expression and returns it as a JSON string. Also great for returning errors in `q.Abort()`.
-
-```js
-import { query as q } from "faunadb-fql-lib"
-
-q.ToJson({ foo: "1", bar: q.Add(1, 2) }) // => {"foo":"1","bar":3}
-```
-
-
-### PageToObject
-
-This function takes the `before`, `after` and `data` properties on Page and creates an Object.
-Usful with other functions that don"t accept Pages. PageToObject is used by MapFQLib.
-
-```js
-import { query as q } from "faunadb-fql-lib"
-
-q.PageToObject(q.Paginate(...))
-```
-
 ### StringSplit
 
 Takes a string and an optional delimiter (defaults to `.`) and splits the string into an array.
@@ -144,6 +155,28 @@ q.StringSplit("foo bar fooBar", " ") // => ["foo", "bar", "fooBar"]
 q.StringSplit("foo-bar-fooBar", "-") // => ["foo", "bar", "fooBar"]
 ```
 
+### ToJson
+
+A simple wrapper around `Format` that takes any expression and returns it as a JSON string. Also great for returning errors in `q.Abort()`.
+
+```js
+import { query as q } from "faunadb-fql-lib"
+
+q.ToJson({ foo: "1", bar: q.Add(1, 2) }) // => {"foo":"1","bar":3}
+```
+
+### WithIndex
+
+Takes an array and wraps each element in an array containing the original value and the index. 
+
+```js
+import { query as q } from "faunadb-fql-lib"
+
+q.WithIndex(["a", "b"]) // => [["a", 0], ["b", 0]]
+
+q.Map(q.WithIndex(["foo", "bar"]), q.Lambda(["val", "i"], q.Var("i"))) // => [0, 1]
+```
+
 ## FQLib functions
 
 ### ContainsFQLib
@@ -153,8 +186,8 @@ Alternative to `Contains` that supports both array and string as path.
 ```js
 import { query as q } from "faunadb-fql-lib"
 
-ContainsFQLib([foo, 1], { foo: ["a", "b"] }) // => true
-ContainsFQLib("foo.1", { foo: ["a", "b"] }) // => true
+q.ContainsFQLib([foo, 1], { foo: ["a", "b"] }) // => true
+q.ContainsFQLib("foo.1", { foo: ["a", "b"] }) // => true
 ```
 
 ### MapFQLib
@@ -165,7 +198,7 @@ to construct a Page object in FQL so passing `{ data: [] }` to Map will not work
 ```js
 import { MapFQLib } from "faunadb-fql-lib"
 
-MapFQLib({ data: ["foo", "bar"]}, Lambda("item", q.Var("item"))) // => ["foo", "bar"]
+q.MapFQLib({ data: ["foo", "bar"]}, q.Lambda("item", q.Var("item"))) // => ["foo", "bar"]
 ```
 
 ### SelectFQLib
@@ -176,16 +209,16 @@ the default value unless there is no match.
 ```js
 import { query as q } from "faunadb-fql-lib"
 
-SelectFQLib([foo, 1], { foo: ["a", "b"] }) // => "b"
-SelectFQLib("foo.1", { foo: ["a", "b"] }) // => "b"
-SelectFQLib("bar.2", { foo: ["a", "b"] }, "default") // => "default"
+q.SelectFQLib([foo, 1], { foo: ["a", "b"] }) // => "b"
+q.SelectFQLib("foo.1", { foo: ["a", "b"] }) // => "b"
+q.SelectFQLib("bar.2", { foo: ["a", "b"] }, "default") // => "default"
 
 /* The current Select in FQL always evaluates the default statement and will
 create a document even if the value was found */
-Select(["bar", 0], { foo: ["a", "b"] }, q.Create(q.Collection('Foos'))) // => "a" + document created in Foos
+q.Select(["bar", 0], { foo: ["a", "b"] }, q.Create(q.Collection('Foos'))) // => "a" + document created in Foos
 
 /* SelectFQLLib will only evaluate if there is no match, so mutations are safe */
-SelectFQLib(["bar", 0], { foo: ["a", "b"] }, q.Create(q.Collection('Foos'))) // => "a" no ducument created
+q.SelectFQLib(["bar", 0], { foo: ["a", "b"] }, q.Create(q.Collection('Foos'))) // => "a" no ducument created
 ```
 
 
