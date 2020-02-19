@@ -172,7 +172,7 @@ Takes an array and wraps each element in an array containing the original value 
 ```js
 import { query as q } from "faunadb-fql-lib"
 
-q.WithIndex(["a", "b"]) // => [["a", 0], ["b", 0]]
+q.WithIndex(["a", "b"]) // => [["a", 0], ["b", 1]]
 
 q.Map(q.WithIndex(["foo", "bar"]), q.Lambda(["val", "i"], q.Var("i"))) // => [0, 1]
 ```
