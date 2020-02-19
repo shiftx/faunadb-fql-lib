@@ -9,5 +9,5 @@ export const FlattenDoc = (doc: ExprArg): ExprVal =>
             },
             q.Merge(q.Merge(doc, { data: null }), q.Var("data"))
         ),
-        q.Abort("Doc passed to FlattenDoc does not pass IsDoc check")
+        q.Abort("Item passed to FlattenDoc does not pass IsDoc check")
     )
