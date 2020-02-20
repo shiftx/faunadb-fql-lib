@@ -66,7 +66,7 @@ describe("UpdateAt", () => {
 
 
         const docAt2Updated = await client.query(
-            UpdateAt(ref, { data: event2UpdateAtPatch }, docEvent2.ts)
+            UpdateAt(ref, docEvent2.ts, { data: event2UpdateAtPatch })
         )
         expect(docAt2Updated.data).toStrictEqual(event2AltFullData)
 

@@ -1,6 +1,6 @@
 import { query as q } from "faunadb"
 
-export const CreateAt = (ref, params, ts) =>
+export const CreateAt = (ref, ts, params) =>
     q.Let(
         {
             ref: q.If(q.IsCollection(ref), q.Ref(ref, q.NewId()), ref),

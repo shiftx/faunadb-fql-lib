@@ -1,7 +1,7 @@
 import { query as q } from "faunadb"
 import { DeepMerge } from "./DeepMerge"
 
-export const UpdateAt = (ref, params, ts) =>
+export const UpdateAt = (ref, ts, params) =>
     q.Let(
         {
             docAt: q.Get(ref, ts),

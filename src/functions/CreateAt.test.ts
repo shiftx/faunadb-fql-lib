@@ -7,7 +7,7 @@ describe("CreateAt", () => {
     test("Create a new document at a specific time", async () => {
         const ts = 150000000000000
         const doc = await client.query(
-            CreateAt(q.Collection("Foos"), { data: { foo: "bar" } }, ts)
+            CreateAt(q.Collection("Foos"), ts, { data: { foo: "bar" } })
         )
         expect(doc.ts).toBe(ts)
         expect(doc.data.foo).toBe("bar")
@@ -16,11 +16,9 @@ describe("CreateAt", () => {
     test("Create a new document with a doc ref a specific time", async () => {
         const ts = 150000000000000
         const doc = await client.query(
-            CreateAt(
-                q.Ref(q.Collection("Foos"), q.NewId()),
-                { data: { foo: "bar" } },
-                ts
-            )
+            CreateAt(q.Ref(q.Collection("Foos"), q.NewId()), ts, {
+                data: { foo: "bar" },
+            })
         )
         expect(doc.ts).toBe(ts)
         expect(doc.data.foo).toBe("bar")
