@@ -1,6 +1,7 @@
 export { ArrayReverse } from "./functions/ArrayReverse"
 export { ContainsFQLib } from "./functions/ContainsFQLib"
 export { CreateAt } from "./functions/CreateAt"
+export { Debug } from "./functions/Debug"
 export { DeepMerge } from "./functions/DeepMerge"
 export { EventExistsAt } from "./functions/EventExistsAt"
 export { Find } from "./functions/Find"
