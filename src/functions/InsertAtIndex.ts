@@ -7,8 +7,22 @@ export const InsertAtIndex = (
 ): ExprVal =>
     q.Let(
         {
-            start: q.Take(index, arr),
-            end: q.Drop(index, arr),
+            arr,
+            index,
+            item,
         },
-        q.Prepend(q.Prepend(q.Var("start"), [item]), q.Var("end"))
+        q.If(
+            q.Equals(-1, q.Var("index")),
+            q.Append([q.Var("item")], q.Var("arr")),
+            q.Let(
+                {
+                    start: q.Take(q.Var("index"), q.Var("arr")),
+                    end: q.Drop(q.Var("index"), q.Var("arr")),
+                },
+                q.Prepend(
+                    q.Prepend(q.Var("start"), [q.Var("item")]),
+                    q.Var("end")
+                )
+            )
+        )
     )
