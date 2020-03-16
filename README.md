@@ -34,13 +34,27 @@ All functions in this library are built using pure FQL. That means that they are
 ### [Functions](#Functions)
 
 * [ArrayReverse](#ArrayReverse)
+* [CreateAt](#CreateAt)
+* [Debug](#Debug)
+* [DeepMerge](#DeepMerge)
+* [DeleteAt](#DeleteAt)
+* [EventExistsAt](#EventExistsAt)
+* [Find](#Find)
+* [FindIndex](#FindIndex)
+* [Flatten](#Flatten)
 * [FlattenDoc](#FlattenDoc)
 * [GetAll](#GetAll)
+* [InsertAtIndex](#InsertAtIndex)
+* [MapSelect](#MapSelect)
 * [ObjectKeys](#ObjectKeys)
 * [PaginateReverse](#PaginateReverse)
 * [PageToObject](#PageToObject)
+* [SelectRef](#SelectRef)
+* [Slice](#Slice)
 * [StringSplit](#PaginateReverse)
 * [ToJson](#ToJson)
+* [Trace](#Trace)
+* [UpdateAt](#UpdateAt) - Experimental
 * [WithIndex](#WithIndex)
 
 ### [FQLib functions](#fqlib-functions) - alternatives to built-in FQL functions
@@ -61,6 +75,107 @@ All functions suffixed with `FQLib` already exists but behaves differently.
 import { query as q } from "faunadb-fql-lib"
 
 q.ArrayReverse([1, 2, 3]) // => [3,2,1]
+```
+
+### CreateAt
+
+```js
+import { query as q } from "faunadb-fql-lib"
+
+q.CreateAt(q.Collection("Foos"), 150000000000000, {
+    data: { foo: "bar" },
+})
+```
+
+### Debug
+A debug/dev utility for aborting the query at any point and return a JSON object.
+
+```js
+import { query as q } from "faunadb-fql-lib"
+
+q.Debug({ foo: 'Bar' })
+```
+
+### DeepMerge
+Deep merges two objects. Provide depth level as third argument. Note: Currently Fauna does not
+support recursion without creating a user defined function so the function is not 100% pure FQL
+and will need a pre-set depth limit.
+
+```js
+import { query as q } from "faunadb-fql-lib"
+
+q.DeepMerge(
+    { data: { a: { a1: 1 } } },
+    { data: { a: { a2: 2 } } },
+    3
+) // => { data: { a: { a1: 1, a2: 2 } } }
+```
+
+
+### DeleteAt
+
+Helper around Insert. Will Insert a delete event at the given timestamp.
+
+```js
+import { query as q } from "faunadb-fql-lib"
+
+q.DeleteAt(q.Ref(q.Collection("Foos"), '1234'), 150000000000000)
+```
+
+### EventExistsAt
+
+Check if there exists an event at the exact given timestamp.
+
+```js
+import { query as q } from "faunadb-fql-lib"
+
+q.EventExistsAt(q.Ref(q.Collection("Foos"), '1234'), 150000000000000) // => truer
+```
+
+### Find
+
+Wrapper around `Filter` that returns the first match.
+
+```js
+import { query as q } from "faunadb-fql-lib"
+
+const array = [{ id: "1" }, { id: "2" }, { id: "3" }]
+
+q.Find(
+    array,
+    q.Lambda(
+        "item",
+        q.Equals("3", q.Select(["id"], q.Var("item")))
+    )
+) // => { id: "3" }
+```
+
+### FindIndex
+
+Returns the index of the first item in an array that matches a Lambda expression.
+
+```js
+import { query as q } from "faunadb-fql-lib"
+
+const array = [{ id: "1" }, { id: "2" }, { id: "3" }]
+
+q.FindIndex(
+    array,
+    q.Lambda(
+        "item",
+        q.Equals("3", q.Select(["id"], q.Var("item")))
+    )
+) // => 2
+```
+
+### Flatten
+
+Flatten an Array. (one level deep only)
+
+```js
+import { query as q } from "faunadb-fql-lib"
+
+q.Flatten([["a", "b"], ["c", "d"], "e"]) // => ["a", "b", "c", "d", "e"]
 ```
 
 ### FlattenDoc
@@ -108,6 +223,27 @@ q.Map(
 )
 ```
 
+### InsertAtIndex
+
+Insert item in array at given index. -1 will add to the end of array.
+
+```js
+import { query as q } from "faunadb-fql-lib"
+
+q.InsertAtIndex(["a", "b", "c", "d"], 2, "foo") // => ["a", "b", "foo", "c", "d"]
+q.InsertAtIndex(["a", "b", "c", "d"], 0, "foo") // => ["foo", "a", "b", "c", "d"]
+q.InsertAtIndex(["a", "b", "c", "d"], -1, "foo") // => ["a", "b", "c", "d", "foo"]
+```
+
+### MapSelect
+
+`Map` and `Select` combined.
+
+```js
+import { query as q } from "faunadb-fql-lib"
+
+q.MapSelect([{ id: "1" }, { id: "2" }, { id: "3" }], ["id"]) // => ["1", "2", "3"]
+```
 
 ### ObjectKeys
 
@@ -143,6 +279,33 @@ q.MapFQLib(
 )
 ```
 
+### SelectRef
+
+Select and return the ref from an object.
+
+```js
+import { query as q } from "faunadb-fql-lib"
+
+q.SelectRef({
+    ref: q.Ref(q.Collection("Foos"), "1234"),
+    ts: 150000000000000,
+    data: {...}
+}) // => q.Ref(q.Collection("Foos"), "1234")
+```
+
+### Slice
+
+Slice an array by start and optional end index positions.
+
+```js
+import { query as q } from "faunadb-fql-lib"
+
+const array = [1, 2, 3, 4, 5, 6]
+
+q.Slice(array, 1, 2) // => [2, 3]
+q.Slice(array, 1) // => [2, 3, 4, 5, 6]
+```
+
 ### StringSplit
 
 Takes a string and an optional delimiter (defaults to `.`) and splits the string into an array.
@@ -164,6 +327,24 @@ import { query as q } from "faunadb-fql-lib"
 
 q.ToJson({ foo: "1", bar: q.Add(1, 2) }) // => {"foo":"1","bar":3}
 ```
+
+### Trace
+
+Debug function that will add a keyword to your position trace if the query fails.
+Usefull when debugging complex and deeply nested fql queries.
+
+```js
+import { query as q } from "faunadb-fql-lib"
+
+const array = [1, 2, 3, 4, 5, 6]
+
+q.Trace('keyWord', q.Get(...))
+```
+
+### UpdateAt (Experimental)
+
+Experimental function that will allow you to update a document at a given point in time and merge the change with newer events.
+Please see test file for more information.
 
 ### WithIndex
 
