@@ -17,6 +17,7 @@
   "scripts": {
     "build": "rm -rf dist && rollup -c && tsc",
     "test": "jest",
+    "dev": "jest --runInBand --watch",
     "release": "yarn build && release-it"
   },
   "devDependencies": {

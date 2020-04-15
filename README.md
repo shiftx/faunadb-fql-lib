@@ -29,33 +29,35 @@ import { MapFQLib } from "faunadb-fql-lib"
 
 ## List of all functions
 
-All functions in this library are built using pure FQL. That means that they are also safe to use in stored Fauna Functions.
+Most functions in this library are built using pure FQL, and can be safly generated and used in Fauna.
+Expetions are marked and will be made pure if possible by future releases of Fauna.
 
 ### [Functions](#Functions)
 
-* [ArrayReverse](#ArrayReverse)
-* [CreateAt](#CreateAt)
-* [Debug](#Debug)
-* [DeepMerge](#DeepMerge)
-* [DeleteAt](#DeleteAt)
-* [EventExistsAt](#EventExistsAt)
-* [Find](#Find)
-* [FindIndex](#FindIndex)
-* [Flatten](#Flatten)
-* [FlattenDoc](#FlattenDoc)
-* [GetAll](#GetAll)
-* [InsertAtIndex](#InsertAtIndex)
-* [MapSelect](#MapSelect)
-* [ObjectKeys](#ObjectKeys)
-* [PaginateReverse](#PaginateReverse)
-* [PageToObject](#PageToObject)
-* [SelectRef](#SelectRef)
-* [Slice](#Slice)
-* [StringSplit](#PaginateReverse)
-* [ToJson](#ToJson)
-* [Trace](#Trace)
-* [UpdateAt](#UpdateAt) - Experimental
-* [WithIndex](#WithIndex)
+* [ArrayReverse](#arrayreverse)
+* [CreateAt](#createat)
+* [Debug](#debug)
+* [DeepMerge](#deepmerge)
+* [DeleteAt](#deleteat)
+* [EventExistsAt](#eventexistsat)
+* [Find](#find)
+* [FindIndex](#findindex)
+* [Flatten](#flatten)
+* [FlattenDoc](#flattendoc)
+* [GetAll](#getall)
+* [InsertAtIndex](#insertatindex)
+* [MapSelect](#mapselect)
+* [ObjectKeys](#objectkeys)
+* [PaginateReverse](#paginatereverse)
+* [PageToObject](#pagetoobject)
+* [SelectRef](#selectref)
+* [Slice](#slice)
+* [StringSplit](#stringsplit)
+* [Switch](#switch)
+* [ToJson](#tojson)
+* [Trace](#trace)
+* [UpdateAt](#updateat) - Experimental
+* [WithIndex](#withindex)
 
 ### [FQLib functions](#fqlib-functions) - alternatives to built-in FQL functions
 
@@ -316,6 +318,27 @@ import { query as q } from "faunadb-fql-lib"
 q.StringSplit("foo.bar.fooBar") // => ["foo", "bar", "fooBar"]
 q.StringSplit("foo bar fooBar", " ") // => ["foo", "bar", "fooBar"]
 q.StringSplit("foo-bar-fooBar", "-") // => ["foo", "bar", "fooBar"]
+```
+
+### Switch
+
+Creates a switch statement that checks a string and evaluates the matching expression in a matchers object.
+A third argument can be provided as default value if no match is found. Without default the transaction will abort.
+
+NOT 100% PURE! The switchObject provided can't be dynamically generated in Fauna and needs to be provided on the client.
+
+```js
+import { query as q } from "faunadb-fql-lib"
+
+const switchObject = {
+    foo: q.Add(1,2),
+    bar: q.Concat(["Hi", "there"], " ")
+}
+
+q.Switch("foo", switchObject) // => 3
+q.Switch("bar", switchObject) // => "Hi there"
+q.Switch("missing", switchObject) // => ERR: transaction aborted, Key 'missing' not supported by Switch
+q.Switch("missing", switchObject, q.String("Fallback expr")) // => "Fallback expr"
 ```
 
 ### ToJson
