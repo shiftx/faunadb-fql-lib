@@ -338,7 +338,7 @@ const switchObject = {
 q.Switch("foo", switchObject) // => 3
 q.Switch("bar", switchObject) // => "Hi there"
 q.Switch("missing", switchObject) // => ERR: transaction aborted, Key 'missing' not supported by Switch
-q.Switch("missing", switchObject, q.String("Fallback expr")) // => "Fallback expr"
+q.Switch("missing", switchObject, q.UpperCase("fallback expr")) // => "FALLBACK EXPR"
 ```
 
 ### ToJson
