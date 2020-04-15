@@ -40,4 +40,18 @@ describe("Switch", () => {
         expect(error.code).toBe("transaction aborted")
         expect(error.description).toBe("Key 'bar' not supported by Switch")
     })
+
+    test("aborts when switchObject is empty", async () => {
+        const query = Switch("bar", {})
+        const res = await client.query(query).catch(err => err)
+        const error = res.requestResult.responseContent.errors[0]
+        expect(error.code).toBe("transaction aborted")
+        expect(error.description).toBe("Key 'bar' not supported by Switch")
+    })
+
+    test("default works when switchObject is empty", async () => {
+        const query = Switch("bar", {}, "default")
+        const res = await client.query(query).catch(err => err)
+        expect(res).toBe("default")
+    })
 })
