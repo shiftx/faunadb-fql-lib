@@ -50,6 +50,7 @@ Expetions are marked and will be made pure if possible by future releases of Fau
 * [ObjectKeys](#objectkeys)
 * [PaginateReverse](#paginatereverse)
 * [PageToObject](#pagetoobject)
+* [RandomString](#randomstring) - Experimental
 * [SelectRef](#selectref)
 * [Slice](#slice)
 * [StringSplit](#stringsplit)
@@ -318,6 +319,17 @@ import { query as q } from "faunadb-fql-lib"
 q.StringSplit("foo.bar.fooBar") // => ["foo", "bar", "fooBar"]
 q.StringSplit("foo bar fooBar", " ") // => ["foo", "bar", "fooBar"]
 q.StringSplit("foo-bar-fooBar", "-") // => ["foo", "bar", "fooBar"]
+```
+
+### RandomString
+
+Generates a random string of a given length. Provide optional alphabet.
+
+```js
+import { query as q } from "faunadb-fql-lib"
+
+q.RandomString(10) // => "1RsBc2SmCc"
+q.RandomString(5, "ABC") // => "BCCBC"
 ```
 
 ### Switch
