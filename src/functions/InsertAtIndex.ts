@@ -2,7 +2,7 @@ import { query as q, ExprVal, ExprArg } from "faunadb"
 
 export const InsertAtIndex = (
     arr: [] | ExprArg,
-    index: number,
+    index: number | ExprArg,
     item: ExprArg
 ): ExprVal =>
     q.Let(
