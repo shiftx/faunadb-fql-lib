@@ -6,7 +6,7 @@ export const Switch = (
     defaultExpr = undefined
 ): ExprVal => {
     return (
-        Object.entries(switchObject).reduce((acc, [switchKey, expr]) => {
+        Object.entries(switchObject).reduce((acc, [switchKey, expr]): ExprVal => {
             return q.If(
                 q.Equals(value, switchKey),
                 expr,
