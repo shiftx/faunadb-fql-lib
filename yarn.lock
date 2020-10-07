@@ -3275,7 +3275,7 @@ __metadata:
     "@types/node": ^13.7.1
     "@yarnpkg/pnpify": ^2.0.0-rc.18
     eslint: ^6.8.0
-    faunadb: ^2.11.1
+    faunadb: 3.0.1
     jest: ^25.1.0
     prettier: ^1.19.1
     release-it: ^12.5.0
@@ -3287,13 +3287,13 @@ __metadata:
     tslib: ^1.10.0
     typescript: ^3.7.5
   peerDependencies:
-    faunadb: 2.x
+    faunadb: 3.x
   languageName: unknown
   linkType: soft
 
-"faunadb@npm:^2.11.1":
-  version: 2.11.1
-  resolution: "faunadb@npm:2.11.1"
+"faunadb@npm:3.0.1":
+  version: 3.0.1
+  resolution: "faunadb@npm:3.0.1"
   dependencies:
     base64-js: ^1.2.0
     btoa-lite: ^1.0.0
@@ -3303,7 +3303,7 @@ __metadata:
     object-assign: ^4.1.0
     url-parse: ^1.4.7
     util-deprecate: ^1.0.2
-  checksum: 2/7a02596b91d060cd17b69f0ae5dbbb35daf97b66279716734b03609f3f8566607963d8186e97f0727f2ce0216a1c1d416a43fd38eb12ec04920687698863c49f
+  checksum: 2/65a3bbfabadbd1809fa05ad39ff706642179492bbf6f7a10e704ed0127e9b492211083ec3865b2657a8b5488f2ba8415e311916ce255b1b86c29200cb7555c18
   languageName: node
   linkType: hard
 

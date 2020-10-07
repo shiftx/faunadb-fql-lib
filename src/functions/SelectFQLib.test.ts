@@ -61,7 +61,7 @@ describe("SelectFQLib", () => {
                 ["foo"],
                 { foo: "bar" },
                 q.Create(ref1, { data: { foo: "this will be created" } })
-            ),
+            ), // This has been fixed in the latest version of Fauna to work
             selectFQLib: SelectFQLib(
                 ["foo"],
                 { foo: "bar" },
@@ -78,7 +78,7 @@ describe("SelectFQLib", () => {
         }
 
         const res = await client.query(query)
-        expect(res.ref1Exists).toBe(true)
+        expect(res.ref1Exists).toBe(false)
         expect(res.ref2Exists).toBe(false)
         expect(res.ref3Exists).toBe(false)
     })

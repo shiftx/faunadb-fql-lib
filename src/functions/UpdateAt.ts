@@ -19,7 +19,7 @@ export const UpdateAt = (ref, ts, params) =>
                 data: q.Var("newData"),
             }),
             q.If(
-                q.Contains(["after"], q.Var("eventsToUpdate")),
+                q.ContainsPath(["after"], q.Var("eventsToUpdate")),
                 q.Abort(
                     "UpdateAt does not currently support rewrtiting history deeper than 1000"
                 ),

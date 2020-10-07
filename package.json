@@ -28,7 +28,7 @@
     "@types/node": "^13.7.1",
     "@yarnpkg/pnpify": "^2.0.0-rc.18",
     "eslint": "^6.8.0",
-    "faunadb": "^2.11.1",
+    "faunadb": "3.0.1",
     "jest": "^25.1.0",
     "prettier": "^1.19.1",
     "release-it": "^12.5.0",
@@ -41,6 +41,6 @@
     "typescript": "^3.7.5"
   },
   "peerDependencies": {
-    "faunadb": "2.x"
+    "faunadb": "3.x"
   }
 }

@@ -14,5 +14,5 @@ export const ContainsFQLib = (
                 DotNotationStringToArray(q.Var("path"))
             ),
         },
-        q.Contains(q.Var("pathArray"), _in)
+        q.ContainsPath(q.Var("pathArray"), _in)
     )

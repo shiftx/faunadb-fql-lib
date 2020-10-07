@@ -29,13 +29,13 @@ export const PaginateReverse = (set: ExprArg, opts: {} = {}): ExprVal =>
                     data: ArrayReverse(q.Select(["data"], q.Var("result"))),
                 },
                 afterObj: q.If(
-                    q.Contains(["before"], q.Var("result")),
+                    q.ContainsPath(["before"], q.Var("result")),
                     { after: q.Select(["before"], q.Var("result")) },
                     {}
                 ),
                 beforeObj: q.If(
                     q.Or(
-                        q.Not(q.Contains(["after"], q.Var("result"))),
+                        q.Not(q.ContainsPath(["after"], q.Var("result"))),
                         q.Equals(
                             [null],
                             q.Select(["after"], q.Var("result"), null)
