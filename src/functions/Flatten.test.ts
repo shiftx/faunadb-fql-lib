@@ -4,6 +4,12 @@ import { createClient } from "../../test/utils"
 
 describe("Flatten", () => {
     const client = createClient()
+    test("flatten on empty array", async () => {
+        const query = Flatten([])
+        const res = await client.query(query).catch(err => err)
+        expect(res).toStrictEqual([])
+    })
+
     test("test flatten doc on regular document", async () => {
         const query = Flatten([["a", "b"], ["c", "d"], "e"])
         const res = await client.query(query).catch(err => err)

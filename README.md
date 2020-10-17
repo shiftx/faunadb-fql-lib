@@ -30,11 +30,11 @@ import { MapFQLib } from "faunadb-fql-lib"
 ## List of all functions
 
 Most functions in this library are built using pure FQL, and can be safly generated and used in Fauna.
-Expetions are marked and will be made pure if possible by future releases of Fauna.
+Exceptions are marked and will be made pure if possible by future releases of Fauna. Deprecated functions have been replaced by native support in Fauna.
 
 ### [Functions](#Functions)
 
-* [ArrayReverse](#arrayreverse)
+* [ArrayReverse](#arrayreverse) - Deprecated
 * [CreateAt](#createat)
 * [Debug](#debug)
 * [DeepMerge](#deepmerge)
@@ -48,11 +48,12 @@ Expetions are marked and will be made pure if possible by future releases of Fau
 * [InsertAtIndex](#insertatindex)
 * [MapSelect](#mapselect)
 * [ObjectKeys](#objectkeys)
-* [PaginateReverse](#paginatereverse)
-* [PageToObject](#pagetoobject)
+* [PaginateReverse](#paginatereverse) - Deprecated
+* [PageToObject](#pagetoobject) - Deprecated
 * [RandomString](#randomstring) - Experimental
 * [SelectRef](#selectref)
 * [Slice](#slice)
+* [Sort](#sort)
 * [StringSplit](#stringsplit)
 * [Switch](#switch)
 * [ToJson](#tojson)
@@ -307,6 +308,17 @@ const array = [1, 2, 3, 4, 5, 6]
 
 q.Slice(array, 1, 2) // => [2, 3]
 q.Slice(array, 1) // => [2, 3, 4, 5, 6]
+```
+
+### Sort
+
+Sort the items of an array
+
+```js
+import { query as q } from "faunadb-fql-lib"
+
+q.Sort([8, 2, 4]) // => [2, 4, 8]
+q.Sort(["foo", "bar"]) // => ["bar", "foo"]
 ```
 
 ### StringSplit
