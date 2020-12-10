@@ -53,6 +53,7 @@ Exceptions are marked and will be made pure if possible by future releases of Fa
 * [RandomString](#randomstring) - Experimental
 * [SelectRef](#selectref)
 * [Slice](#slice)
+* [Slugify](#Slugify)
 * [Sort](#sort)
 * [StringSplit](#stringsplit)
 * [Switch](#switch)
@@ -308,6 +309,16 @@ const array = [1, 2, 3, 4, 5, 6]
 
 q.Slice(array, 1, 2) // => [2, 3]
 q.Slice(array, 1) // => [2, 3, 4, 5, 6]
+```
+
+### Slugify
+
+Downcase string and replace whitespace and `_` with `-`
+
+```js
+import { query as q } from "faunadb-fql-lib"
+
+q.Slugify("Foo Bar_FooBar") // => "foo-bar-foobar"
 ```
 
 ### Sort
